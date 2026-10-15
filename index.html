@@ -19,6 +19,7 @@
     --accent: #f0a37a;
   }
   * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
   html { scroll-behavior: smooth; }
   body {
     margin: 0;
@@ -92,12 +93,61 @@
     header > * { animation: none; }
     .reveal { opacity: 1; transform: none; transition: none; }
   }
+
+  :root { --muted: #aaaab4; }
+  html { scroll-padding-top: 100px; }
+  body { transition: background .2s, color .2s; }
+  body.light { --bg:#faf8f5; --surface:#fff; --text:#242326; --muted:#65616a; --line:#ddd7d0; --accent:#a34222; }
+  body.light .desc, body.light .card p { color:#514d55; }
+  body.light .btn.primary { color:#fff; }
+  button { font:inherit; color:inherit; cursor:pointer; }
+  :focus-visible { outline:2px solid var(--accent); outline-offset:5px; }
+  .skip { position:fixed; top:-100px; left:16px; z-index:10; background:var(--surface); padding:12px; }
+  .skip:focus { top:12px; }
+  .nav { position:sticky; top:0; z-index:5; background:var(--bg); border-bottom:1px solid var(--line); }
+  .nav-inner { display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:66px; }
+  .brand { font-weight:600; color:var(--accent); letter-spacing:-.04em; }
+  .nav-links { display:flex; gap:20px; font-size:13px; }
+  .nav-links a { color:var(--muted); padding:8px 0; }
+  .nav-links a[aria-current], .nav-links a:hover { color:var(--accent); }
+  .theme { background:transparent; border:1px solid var(--line); border-radius:50%; width:36px; height:36px; }
+  .eyebrow { text-transform:uppercase; letter-spacing:.16em; font-size:11px; color:var(--muted); margin-bottom:20px; }
+  .filters { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:22px; }
+  .filter { border:1px solid var(--line); background:transparent; border-radius:30px; padding:7px 14px; font-size:12px; }
+  .filter[aria-pressed="true"] { background:var(--accent); color:var(--bg); border-color:var(--accent); }
+  .card { transition:transform .2s, border-color .2s; }
+  .card:hover { border-color:var(--accent); transform:translateY(-3px); }
+  .project-number { color:var(--accent); font-size:12px; letter-spacing:.12em; margin-bottom:12px; }
+  .card[hidden] { display:none; }
+  details { margin-top:18px; border-top:1px solid var(--line); padding-top:12px; }
+  summary { cursor:pointer; font-size:13px; color:var(--accent); width:fit-content; }
+  .project-link { display:inline-block; color:var(--accent); font-size:13px; margin-top:14px; }
+  .project-link:hover { text-decoration:underline; }
+  .project-status { font-size:12px; color:var(--muted); margin-top:14px; }
+  .section-heading { display:flex; align-items:baseline; justify-content:space-between; gap:12px; }
+  .section-heading span { font-size:12px; color:var(--muted); }
+  .contact-box { border:1px solid var(--line); background:var(--surface); border-radius:12px; padding:28px; }
+  .contact-box h3 { font-size:25px; margin-bottom:8px; }
+  .contact-box p { color:var(--muted); margin-bottom:20px; }
+  #copy-status { min-height:24px; font-size:13px; color:var(--accent); margin-top:12px; }
+  .progress { position:fixed; top:0; left:0; height:2px; background:var(--accent); z-index:8; width:0; }
+  @media(max-width:480px) { .nav-links { gap:12px; font-size:12px; } .nav-inner { gap:8px; } header { padding-top:48px; } }
+  @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *, *::before, *::after { animation:none!important; transition:none!important; } .card:hover { transform:none; } }
+
 </style>
 </head>
 <body>
-<main class="wrap">
+<a class="skip" href="#main">Skip to content</a>
+<div class="progress" aria-hidden="true"></div>
+<nav class="nav" aria-label="Main navigation"><div class="wrap nav-inner">
+<a class="brand" href="#main" aria-label="Joanne Wong, back to top">JW.</a>
+<div class="nav-links"><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#about">About</a><a href="#contact">Contact</a></div>
+<button class="theme" type="button" aria-label="Switch to light theme" title="Switch theme" hidden>☀</button>
+</div></nav>
+<main class="wrap" id="main">
 
   <header>
+    <p class="eyebrow">Joanne Wong / Portfolio</p>
     <h1>Wong Jing Tao Joanne</h1>
     <p class="role">Data Analytics · Machine Learning · Computer Vision</p>
     <p class="lede">Big Data Analytics student minoring in Accounting &amp; Finance, with experience in data analytics, machine learning and business performance analysis. Skilled in Python, SQL, data visualization and predictive modeling.</p>
@@ -121,7 +171,7 @@
     </div>
   </header>
 
-  <section>
+  <section id="experience">
     <h2>Experience</h2>
     <div class="row">
       <h3>Digital Agent · KABEL DXP</h3>
@@ -135,28 +185,30 @@
     </div>
   </section>
 
-  <section>
-    <h2>Projects</h2>
-    <a class="card" href="https://github.com/wongjoan/HybridFusion" target="_blank" rel="noopener">
-      <span class="arrow">↗</span>
+  <section id="projects">
+    <div class="section-heading"><h2>Selected projects</h2><span id="project-count" aria-live="polite">3 projects</span></div>
+    <div class="filters" role="group" aria-label="Filter projects" hidden>
+    <button class="filter" aria-pressed="true" data-filter="all">All work</button>
+    <button class="filter" aria-pressed="false" data-filter="ml">Machine learning</button>
+    <button class="filter" aria-pressed="false" data-filter="analytics">Analytics</button>
+    <button class="filter" aria-pressed="false" data-filter="ar">AR &amp; interaction</button></div>
+    <article class="card" data-category="ml"><div class="project-number">01 / COMPUTER VISION</div>
       <h3>HybridFusionNet</h3>
       <p>Multimodal wildfire segmentation fusing RGB and thermal imagery with an ensemble of YOLOv12 and EfficientNet models.</p>
       <div class="tags">PyTorch · YOLOv12 · EfficientNet</div>
-    </a>
-    <a class="card" href="https://github.com/wongjoan/commercial-return-dashboard" target="_blank" rel="noopener">
-      <span class="arrow">↗</span>
+    <details><summary>Model approach</summary><p>Combines RGB and thermal inputs for wildfire segmentation, using an ensemble of YOLOv12 and EfficientNet models.</p></details><a class="project-link" href="https://github.com/wongjoan/HybridFusion" target="_blank" rel="noopener">Explore repository ↗</a></article>
+    <article class="card" data-category="analytics"><div class="project-number">02 / BUSINESS ANALYTICS</div>
       <h3>Commercial ROI Dashboard</h3>
       <p>Role-based performance and ROI dashboard with explainable KPI scores, built for Glocomp Systems.</p>
       <div class="tags">Python · SQL · KPI Analytics</div>
-    </a>
-    <div class="card">
+    <details><summary>Dashboard focus</summary><p>Brings role-based performance and return-on-investment views together with explainable KPI scores for Glocomp Systems.</p></details><a class="project-link" href="https://github.com/wongjoan/commercial-return-dashboard" target="_blank" rel="noopener">Explore repository ↗</a></article>
+    <article class="card" data-category="ml ar"><div class="project-number">03 / AUGMENTED REALITY</div>
       <h3>AR Action Recognition for ROV Safety</h3>
       <p>Final year project: real-time hand-action recognition on HoloLens 2 with sub-100 ms feedback.</p>
-      <div class="tags">MediaPipe · Random Forest · MRTK3</div>
-    </div>
+      <div class="tags">MediaPipe · Random Forest · MRTK3</div><details><summary>Interaction approach</summary><p>Uses MediaPipe, Random Forest and MRTK3 for real-time hand-action recognition on HoloLens 2, targeting ROV safety with sub-100 ms feedback.</p></details><div class="project-status">Final year project</div></article>
   </section>
 
-  <section>
+  <section id="leadership">
     <h2>Leadership &amp; Awards</h2>
     <div class="row">
       <h3>Project Director · FESCO 2025, UTP</h3>
@@ -178,7 +230,7 @@
     </div>
   </section>
 
-  <section>
+  <section id="about">
     <h2>Education</h2>
     <div class="row">
       <h3>BIT (Hons), Big Data Analytics · UTP</h3>
@@ -186,6 +238,11 @@
     </div>
   </section>
 
+  <section id="contact"><h2>Get in touch</h2><div class="contact-box">
+    <h3>Let’s connect.</h3><p>Have a project, an opportunity, or an idea to share?</p>
+    <div class="links"><a class="btn primary" href="mailto:wongjingtao1001@gmail.com">Say hello ↗</a><button class="btn" id="copy-email" type="button" hidden>Copy email</button></div>
+    <div id="copy-status" role="status"></div>
+  </div></section>
 </main>
 
 <footer>
@@ -202,6 +259,52 @@
     }, { rootMargin: "0px 0px -8% 0px" });
     items.forEach(function (el) { el.classList.add("reveal"); io.observe(el); });
   })();
+
+  (function () {
+    var theme = document.querySelector('.theme');
+    function setTheme(light) {
+      document.body.classList.toggle('light', light);
+      document.querySelector('meta[name="color-scheme"]').content = light ? 'light' : 'dark';
+      theme.textContent = light ? '☾' : '☀';
+      theme.setAttribute('aria-label', 'Switch to ' + (light ? 'dark' : 'light') + ' theme');
+    }
+    var stored; try { stored = localStorage.getItem('portfolio-theme'); } catch(e) {}
+    setTheme(stored === 'light'); theme.hidden = false;
+    theme.addEventListener('click', function() {
+      setTheme(!document.body.classList.contains('light'));
+      try { localStorage.setItem('portfolio-theme', document.body.classList.contains('light') ? 'light' : 'dark'); } catch(e) {}
+    });
+    document.querySelector('.filters').hidden = false;
+    document.querySelectorAll('.filter').forEach(function(button) {
+      button.addEventListener('click', function() {
+        document.querySelectorAll('.filter').forEach(function(b) { b.setAttribute('aria-pressed', String(b === button)); });
+        var count = 0;
+        document.querySelectorAll('[data-category]').forEach(function(card) {
+          card.hidden = button.dataset.filter !== 'all' && !card.dataset.category.split(' ').includes(button.dataset.filter);
+          if (!card.hidden) count++;
+        });
+        document.getElementById('project-count').textContent = count + (count === 1 ? ' project' : ' projects');
+      });
+    });
+    var copy = document.getElementById('copy-email');
+    if (navigator.clipboard && window.isSecureContext) {
+      copy.hidden = false;
+      copy.addEventListener('click', async function() {
+        try { await navigator.clipboard.writeText('wongjingtao1001@gmail.com'); document.getElementById('copy-status').textContent = 'Email copied. Let’s talk!'; }
+        catch(e) { document.getElementById('copy-status').textContent = 'Email: wongjingtao1001@gmail.com'; }
+      });
+    }
+    var links = document.querySelectorAll('.nav-links a');
+    function updateScroll() {
+      var range = document.documentElement.scrollHeight - window.innerHeight;
+      document.querySelector('.progress').style.width = (range > 0 ? window.scrollY / range * 100 : 0) + '%';
+      var active = '';
+      document.querySelectorAll('main section[id]').forEach(function(section) { if(section.getBoundingClientRect().top <= 140) active = section.id; });
+      links.forEach(function(a) { if(a.hash === '#' + active) a.setAttribute('aria-current','location'); else a.removeAttribute('aria-current'); });
+    }
+    window.addEventListener('scroll', updateScroll, {passive:true}); window.addEventListener('resize', updateScroll); updateScroll();
+  })();
+
 </script>
 </body>
 </html>
