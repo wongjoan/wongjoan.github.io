@@ -82,6 +82,8 @@
   h1 { margin: 32px 0 24px; font-size: clamp(42px, 7.5vw, 72px); line-height: 1.04; font-weight: 700; letter-spacing: -.03em; }
   h1 .glow { color: var(--accent); text-shadow: 0 0 32px rgba(240,163,122,.45); }
   .lede { font-size: 19px; line-height: 1.6; color: var(--muted); max-width: 640px; margin-bottom: 40px; }
+  .lede p:first-child { color: var(--text); font-size: clamp(22px, 3.2vw, 30px); font-weight: 600; line-height: 1.3; letter-spacing: -.01em; }
+  .lede p + p { margin-top: 16px; font-size: 17px; }
   .actions { display: flex; flex-wrap: wrap; gap: 14px; }
   .strip {
     margin-top: 72px; border: 1px solid var(--line); background: rgba(11,18,32,.7); border-radius: 10px;
@@ -212,9 +214,12 @@
 <main class="wrap" id="main">
 
   <header class="hero">
-    <p class="pill">APPLIED AI · COMPUTER VISION · MULTIMODAL SENSING</p>
+    <p class="pill">APPLIED AI · COMPUTER VISION · DATA SCIENCE</p>
     <h1>Wong Jing Tao <span class="glow">Joanne</span></h1>
-    <p class="lede">Applied AI developer and final-year Big Data Analytics student at Universiti Teknologi PETRONAS, with a seven-month ML research internship at Deakin University’s IISRI. Open to AI/ML engineer and data scientist roles.</p>
+    <div class="lede">
+      <p>I turn raw signals and messy data into decisions.</p>
+      <p>Computer vision, multimodal sensing and data science. The proof is below.</p>
+    </div>
     <div class="actions">
       <a class="btn primary" href="Wong_Jing_Tao_Joanne_CV.pdf" download>[ Download CV ]</a>
       <a class="btn" href="#work">View my work ↓</a>
@@ -369,7 +374,7 @@
 
   <section id="contact">
     <p class="label">// GET IN TOUCH</p>
-    <h2>Let’s talk about AI/ML roles.</h2>
+    <h2>Let’s build something together.</h2>
     <p class="contact-intro">Download my CV or reach me on any of these.</p>
     <div class="contacts">
       <a class="contact cv" href="Wong_Jing_Tao_Joanne_CV.pdf" download><small>CV</small><div>Download PDF ↓</div></a>
