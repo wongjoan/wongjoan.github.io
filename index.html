@@ -5,253 +5,392 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="dark">
 <title>Joanne Wong · Portfolio</title>
-<meta name="description" content="Wong Jing Tao Joanne — Big Data Analytics student at Universiti Teknologi PETRONAS working in machine learning, computer vision and business analytics.">
+<meta name="description" content="Wong Jing Tao Joanne — applied AI developer in computer vision and multimodal sensing, final-year Big Data Analytics student at Universiti Teknologi PETRONAS.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0e0e10;
-    --surface: #16161a;
-    --text: #ececef;
-    --muted: #8b8b94;
-    --line: #26262c;
+    --bg: #070b14;
+    --surface: #0b1220;
+    --line: #1b2638;
+    --line-strong: #1f2d42;
+    --text: #e8eef7;
+    --body: #c4cedc;
+    --muted: #a7b3c6;
+    --faint: #8a97ab;
     --accent: #f0a37a;
+    --accent-ink: #1a120d;
+    --accent-line: #4a2e1f;
+    --accent-bg: #1d140f;
+    --mono: "JetBrains Mono", ui-monospace, monospace;
   }
   * { box-sizing: border-box; }
   [hidden] { display: none !important; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; scroll-padding-top: 90px; }
   body {
     margin: 0;
-    background: var(--bg);
     color: var(--text);
-    font: 16px/1.65 "Inter", system-ui, sans-serif;
+    font: 16px/1.65 "Sora", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
+    background-color: var(--bg);
+    background-image:
+      linear-gradient(rgba(120,160,220,.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(120,160,220,.06) 1px, transparent 1px);
+    background-size: 48px 48px;
   }
   a { color: inherit; text-decoration: none; }
-  .wrap { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+  button { font: inherit; color: inherit; cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+  p { margin: 0; }
+  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
+  .mono { font-family: var(--mono); }
+  .accent { color: var(--accent); }
 
-  header { padding: 96px 0 72px; }
-  h1 { font-size: clamp(32px, 6vw, 44px); font-weight: 600; letter-spacing: -.02em; line-height: 1.15; margin: 0 0 12px; }
-  .role { color: var(--accent); font-weight: 500; margin: 0 0 20px; }
-  .lede { color: var(--muted); font-size: 17px; max-width: 560px; margin: 0 0 32px; }
-  .links { display: flex; flex-wrap: wrap; gap: 10px; }
+  .skip { position: fixed; top: -100px; left: 16px; z-index: 20; background: var(--surface); padding: 12px; border-radius: 6px; }
+  .skip:focus { top: 12px; }
+  .progress { position: fixed; top: 0; left: 0; height: 2px; width: 0; background: var(--accent); z-index: 15; }
+
+  /* Nav */
+  .nav { position: sticky; top: 0; z-index: 10; background: rgba(7,11,20,.88); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+  .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 68px; }
+  .brand { font-weight: 700; font-size: 18px; letter-spacing: -.01em; }
+  .nav-links { display: flex; align-items: center; gap: 28px; font-size: 14px; }
+  .nav-links a:not(.btn) { color: var(--muted); padding: 8px 0; }
+  .nav-links a:not(.btn):hover, .nav-links a[aria-current] { color: var(--accent); }
+
+  /* Buttons */
   .btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 9px 16px; border-radius: 8px; font-size: 14px; font-weight: 500;
-    border: 1px solid var(--line); background: var(--surface);
-    transition: border-color .15s, color .15s;
+    display: inline-flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 500; padding: 14px 22px; border-radius: 6px;
+    border: 1px solid var(--line-strong); background: var(--surface);
+    transition: border-color .15s, color .15s, opacity .15s;
   }
   .btn:hover { border-color: var(--accent); color: var(--accent); }
-  .btn.primary { background: var(--accent); border-color: var(--accent); color: #1a120d; }
-  .btn.primary:hover { color: #1a120d; opacity: .88; }
-  .btn svg { width: 16px; height: 16px; fill: currentColor; }
+  .btn.primary { font-family: var(--mono); background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .btn.primary:hover { color: var(--accent-ink); opacity: .88; }
+  .btn.small { padding: 9px 14px; font-size: 13px; }
 
-  section { padding: 48px 0; border-top: 1px solid var(--line); }
-  h2 { font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin: 0 0 28px; }
-  h3 { font-size: 17px; font-weight: 600; margin: 0; }
-  p { margin: 0; }
-  .meta { color: var(--muted); font-size: 14px; }
-
-  .row { display: grid; grid-template-columns: 1fr auto; gap: 2px 24px; margin-bottom: 28px; }
-  .row:last-child { margin-bottom: 0; }
-  .row .desc { grid-column: 1 / -1; margin-top: 6px; color: #c4c4cb; }
-
-  .card {
-    display: block; background: var(--surface); border: 1px solid var(--line);
-    border-radius: 12px; padding: 22px; margin-bottom: 14px;
-    transition: border-color .15s;
+  /* Hero */
+  header.hero { padding: 112px 0 72px; }
+  .pill {
+    display: inline-flex; align-items: center; gap: 10px;
+    border: 1px solid var(--line-strong); background: var(--surface); border-radius: 999px;
+    padding: 8px 16px; font-family: var(--mono); font-size: 12px; letter-spacing: .08em; color: var(--accent);
   }
-  .card:last-child { margin-bottom: 0; }
-  a.card:hover { border-color: var(--accent); }
-  a.card:hover h3 { color: var(--accent); }
-  .card p { color: #c4c4cb; margin-top: 8px; }
-  .tags { margin-top: 14px; font-size: 13px; color: var(--muted); }
-  .arrow { color: var(--muted); float: right; }
+  .pill::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+  h1 { margin: 32px 0 24px; font-size: clamp(42px, 7.5vw, 72px); line-height: 1.04; font-weight: 700; letter-spacing: -.03em; }
+  h1 .glow { color: var(--accent); text-shadow: 0 0 32px rgba(240,163,122,.45); }
+  .lede { font-size: 19px; line-height: 1.6; color: var(--muted); max-width: 640px; margin-bottom: 40px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 14px; }
+  .strip {
+    margin-top: 72px; border: 1px solid var(--line); background: rgba(11,18,32,.7); border-radius: 10px;
+    padding: 20px 24px; display: flex; flex-wrap: wrap; gap: 16px 48px;
+    font-family: var(--mono); font-size: 13px; letter-spacing: .06em; color: #c9d3e1;
+  }
+  .tri { color: var(--accent); margin-right: 8px; }
 
-  footer { border-top: 1px solid var(--line); padding: 32px 0 48px; color: var(--muted); font-size: 14px; }
-  footer a:hover { color: var(--accent); }
+  /* Sections */
+  section { padding: 72px 0; }
+  .label { margin-bottom: 12px; font-family: var(--mono); font-size: 13px; letter-spacing: .12em; color: var(--accent); }
+  h2 { margin: 0 0 40px; font-size: clamp(32px, 5vw, 44px); font-weight: 700; letter-spacing: -.02em; line-height: 1.15; }
+  h3 { margin: 0; font-weight: 600; }
+  .head-row { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 32px; }
+  .head-row h2 { margin: 0; }
+  .card { border: 1px solid var(--line); background: var(--surface); border-radius: 12px; padding: 28px; }
 
+  /* Filters */
+  .filters { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+  .filter { border: 1px solid var(--line-strong); background: transparent; border-radius: 999px; padding: 8px 16px; font-family: var(--mono); font-size: 12px; letter-spacing: .04em; color: var(--muted); }
+  .filter:hover { color: var(--accent); border-color: var(--accent); }
+  .filter[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+  .count { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; color: var(--faint); }
+
+  /* Projects */
+  .projects { display: flex; flex-direction: column; gap: 20px; }
+  .project { padding: 32px; display: flex; flex-wrap: wrap; gap: 32px; align-items: center; transition: border-color .2s; }
+  .project:hover { border-color: var(--accent-line); }
+  .project-body { flex: 999 1 420px; min-width: 0; }
+  .project-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 10px 14px; }
+  .code { font-family: var(--mono); font-size: 12px; color: var(--accent); border: 1px solid var(--accent-line); padding: 3px 8px; border-radius: 4px; }
+  .project h3 { font-size: 24px; }
+  .kicker { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; color: var(--faint); }
+  .project-body p { margin: 16px 0 0; color: var(--body); }
+  .repo { display: inline-block; margin-top: 18px; font-family: var(--mono); font-size: 13px; color: var(--accent); overflow-wrap: anywhere; }
+  .repo:hover { text-decoration: underline; }
+  .stats { flex: 1 1 340px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+  .stats.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stat { border: 1px solid var(--line); background: var(--bg); border-radius: 8px; padding: 16px 10px; text-align: center; }
+  .stat b { display: block; font-size: 22px; font-weight: 700; color: var(--accent); line-height: 1.35; }
+  .stat span { display: block; margin-top: 6px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .06em; color: var(--faint); }
+
+  /* Experience */
+  .job-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
+  .job-head h3 { font-size: 22px; }
+  .sub { margin-top: 6px; color: var(--muted); }
+  .date { font-family: var(--mono); font-size: 13px; color: var(--accent); }
+  .split { margin-top: 28px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 24px; }
+  .split > div { border-top: 1px solid var(--line); padding-top: 18px; }
+  .split .kicker { margin-bottom: 8px; }
+  .split p:last-child { color: var(--body); line-height: 1.6; }
+
+  /* About */
+  .grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .card-label { margin-bottom: 16px; font-family: var(--mono); font-size: 12px; letter-spacing: .1em; color: var(--accent); }
+  .card p { color: var(--body); line-height: 1.6; }
+  .card p + p { margin-top: 10px; }
+  .card strong { color: var(--text); font-weight: 600; }
+  .card h3 { font-size: 17px; line-height: 1.45; }
+  .card .sub { margin: 6px 0 14px; }
+  .awards { margin-top: 20px; }
+  .awards ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 32px; color: var(--body); }
+
+  /* Contact */
+  .contact-intro { margin: -24px 0 36px; color: var(--muted); font-size: 17px; }
+  .contacts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+  .contact { display: block; border: 1px solid var(--line); background: var(--surface); border-radius: 10px; padding: 22px; transition: border-color .15s; }
+  .contact:hover { border-color: var(--accent); }
+  .contact.cv { border-color: var(--accent); background: var(--accent-bg); }
+  .contact small { display: block; font-family: var(--mono); font-size: 11px; letter-spacing: .1em; color: var(--faint); }
+  .contact.cv small { color: var(--accent); }
+  .contact div { margin-top: 10px; font-weight: 600; overflow-wrap: anywhere; }
+  .copy-row { margin-top: 18px; display: flex; flex-wrap: wrap; align-items: center; gap: 14px; }
+  #copy-status { font-family: var(--mono); font-size: 13px; color: var(--accent); }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 24px; text-align: center; font-family: var(--mono); font-size: 12px; color: var(--faint); }
+
+  @media (max-width: 900px) {
+    .grid3 { grid-template-columns: 1fr; }
+    .contacts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
   @media (max-width: 640px) {
     .wrap { padding: 0 16px; }
-    header { padding: 64px 0 48px; }
-    .row { grid-template-columns: 1fr; }
+    .nav-links { gap: 16px; font-size: 13px; }
+    .nav-links .hide-sm { display: none; }
+    header.hero { padding: 64px 0 48px; }
+    .strip { margin-top: 48px; }
+    section { padding: 56px 0; }
+    .project, .card { padding: 22px; }
+    .split, .awards ul, .contacts { grid-template-columns: 1fr; }
   }
 
   /* Intro on load */
   @keyframes rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
-  header > * { animation: rise .7s cubic-bezier(.2, .7, .2, 1) both; }
-  header > :nth-child(2) { animation-delay: .12s; }
-  header > :nth-child(3) { animation-delay: .24s; }
-  header > :nth-child(4) { animation-delay: .36s; }
+  header.hero > * { animation: rise .7s cubic-bezier(.2, .7, .2, 1) both; }
+  header.hero > :nth-child(2) { animation-delay: .12s; }
+  header.hero > :nth-child(3) { animation-delay: .24s; }
+  header.hero > :nth-child(4) { animation-delay: .36s; }
+  header.hero > :nth-child(5) { animation-delay: .48s; }
 
   /* Fade-in on scroll (classes added by script, so content stays visible without JS) */
   .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s cubic-bezier(.2, .7, .2, 1); }
   .reveal.in { opacity: 1; transform: none; }
 
   @media (prefers-reduced-motion: reduce) {
-    header > * { animation: none; }
-    .reveal { opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
   }
-
-  :root { --muted: #aaaab4; }
-  html { scroll-padding-top: 100px; }
-  body { transition: background .2s, color .2s; }
-  body.light { --bg:#faf8f5; --surface:#fff; --text:#242326; --muted:#65616a; --line:#ddd7d0; --accent:#a34222; }
-  body.light .desc, body.light .card p { color:#514d55; }
-  body.light .btn.primary { color:#fff; }
-  button { font:inherit; color:inherit; cursor:pointer; }
-  :focus-visible { outline:2px solid var(--accent); outline-offset:5px; }
-  .skip { position:fixed; top:-100px; left:16px; z-index:10; background:var(--surface); padding:12px; }
-  .skip:focus { top:12px; }
-  .nav { position:sticky; top:0; z-index:5; background:var(--bg); border-bottom:1px solid var(--line); }
-  .nav-inner { display:flex; align-items:center; justify-content:space-between; gap:12px; min-height:66px; }
-  .brand { font-weight:600; color:var(--accent); letter-spacing:-.04em; }
-  .nav-links { display:flex; gap:20px; font-size:13px; }
-  .nav-links a { color:var(--muted); padding:8px 0; }
-  .nav-links a[aria-current], .nav-links a:hover { color:var(--accent); }
-  .theme { background:transparent; border:1px solid var(--line); border-radius:50%; width:36px; height:36px; }
-  .eyebrow { text-transform:uppercase; letter-spacing:.16em; font-size:11px; color:var(--muted); margin-bottom:20px; }
-  .filters { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:22px; }
-  .filter { border:1px solid var(--line); background:transparent; border-radius:30px; padding:7px 14px; font-size:12px; }
-  .filter[aria-pressed="true"] { background:var(--accent); color:var(--bg); border-color:var(--accent); }
-  .card { transition:transform .2s, border-color .2s; }
-  .card:hover { border-color:var(--accent); transform:translateY(-3px); }
-  .project-number { color:var(--accent); font-size:12px; letter-spacing:.12em; margin-bottom:12px; }
-  .card[hidden] { display:none; }
-  details { margin-top:18px; border-top:1px solid var(--line); padding-top:12px; }
-  summary { cursor:pointer; font-size:13px; color:var(--accent); width:fit-content; }
-  .project-link { display:inline-block; color:var(--accent); font-size:13px; margin-top:14px; }
-  .project-link:hover { text-decoration:underline; }
-  .project-status { font-size:12px; color:var(--muted); margin-top:14px; }
-  .section-heading { display:flex; align-items:baseline; justify-content:space-between; gap:12px; }
-  .section-heading span { font-size:12px; color:var(--muted); }
-  .contact-box { border:1px solid var(--line); background:var(--surface); border-radius:12px; padding:28px; }
-  .contact-box h3 { font-size:25px; margin-bottom:8px; }
-  .contact-box p { color:var(--muted); margin-bottom:20px; }
-  #copy-status { min-height:24px; font-size:13px; color:var(--accent); margin-top:12px; }
-  .progress { position:fixed; top:0; left:0; height:2px; background:var(--accent); z-index:8; width:0; }
-  @media(max-width:480px) { .nav-links { gap:12px; font-size:12px; } .nav-inner { gap:8px; } header { padding-top:48px; } }
-  @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } *, *::before, *::after { animation:none!important; transition:none!important; } .card:hover { transform:none; } }
-
 </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <div class="progress" aria-hidden="true"></div>
-<nav class="nav" aria-label="Main navigation"><div class="wrap nav-inner">
-<a class="brand" href="#main" aria-label="Joanne Wong, back to top">JW.</a>
-<div class="nav-links"><a href="#projects">Projects</a><a href="#experience">Experience</a><a href="#about">About</a><a href="#contact">Contact</a></div>
-<button class="theme" type="button" aria-label="Switch to light theme" title="Switch theme" hidden>☀</button>
-</div></nav>
+
+<nav class="nav" aria-label="Main navigation">
+  <div class="wrap nav-inner">
+    <a class="brand" href="#main" aria-label="Joanne Wong, back to top">joanne<span class="accent">.wong</span></a>
+    <div class="nav-links">
+      <a href="#work">Work</a>
+      <a href="#experience">Experience</a>
+      <a class="hide-sm" href="#about">About</a>
+      <a class="btn primary small" href="Wong_Jing_Tao_Joanne_CV.pdf" download>[ CV ]</a>
+    </div>
+  </div>
+</nav>
+
 <main class="wrap" id="main">
 
-  <header>
-    <p class="eyebrow">Joanne Wong / Portfolio</p>
-    <h1>Wong Jing Tao Joanne</h1>
-    <p class="role">Data Analytics · Machine Learning · Computer Vision</p>
-    <p class="lede">Big Data Analytics student minoring in Accounting &amp; Finance, with experience in data analytics, machine learning and business performance analysis. Skilled in Python, SQL, data visualization and predictive modeling.</p>
-    <div class="links">
-      <a class="btn primary" href="Wong_Jing_Tao_Joanne_CV.pdf" download>
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 3h2v10.2l3.6-3.6 1.4 1.4-6 6-6-6 1.4-1.4 3.6 3.6V3Zm-7 16h16v2H4v-2Z"/></svg>
-        Download CV
-      </a>
-      <a class="btn" href="https://github.com/wongjoan" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.2-3.1-.1-.4-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .5Z"/></svg>
-        GitHub
-      </a>
-      <a class="btn" href="https://www.linkedin.com/in/wong-jing-tao-joanne/" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.4 20.5h-3.6v-5.6c0-1.3 0-3-1.8-3s-2.1 1.4-2.1 2.9v5.7H9.3V9h3.4v1.6h.1c.5-.9 1.6-1.8 3.4-1.8 3.6 0 4.3 2.4 4.3 5.5v6.2ZM5.3 7.4a2.1 2.1 0 1 1 0-4.2 2.1 2.1 0 0 1 0 4.2ZM7.1 20.5H3.5V9h3.6v11.5ZM22.2 0H1.8C.8 0 0 .8 0 1.7v20.6c0 .9.8 1.7 1.8 1.7h20.4c1 0 1.8-.8 1.8-1.7V1.7C24 .8 23.2 0 22.2 0Z"/></svg>
-        LinkedIn
-      </a>
-      <a class="btn" href="mailto:wongjingtao1001@gmail.com">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4.2-8 5-8-5V6l8 5 8-5v2.2Z"/></svg>
-        Email
-      </a>
+  <header class="hero">
+    <p class="pill">APPLIED AI · COMPUTER VISION · MULTIMODAL SENSING</p>
+    <h1>Wong Jing Tao <span class="glow">Joanne</span></h1>
+    <p class="lede">Applied AI developer and final-year Big Data Analytics student at Universiti Teknologi PETRONAS, with a seven-month ML research internship at Deakin University’s IISRI. Open to AI/ML engineer and data scientist roles.</p>
+    <div class="actions">
+      <a class="btn primary" href="Wong_Jing_Tao_Joanne_CV.pdf" download>[ Download CV ]</a>
+      <a class="btn" href="#work">View my work ↓</a>
+    </div>
+    <div class="strip">
+      <span><span class="tri">▲</span>PYTHON · PYTORCH · OPENCV</span>
+      <span><span class="tri">▲</span>RGB-IR FUSION · YOLOV12</span>
+      <span><span class="tri">▲</span>HOLOLENS 2 · REAL-TIME AR</span>
     </div>
   </header>
 
-  <section id="experience">
-    <h2>Experience</h2>
-    <div class="row">
-      <h3>Digital Agent · KABEL DXP</h3>
-      <span class="meta">Present</span>
-      <p class="desc">Developed a centralized commercial performance dashboard covering 4 organizational levels to improve KPI visibility and performance monitoring.</p>
+  <section id="work">
+    <p class="label">// SELECTED WORK</p>
+    <div class="head-row">
+      <h2>What I’ve built</h2>
+      <span class="count" id="project-count" aria-live="polite">4 PROJECTS</span>
     </div>
-    <div class="row">
-      <h3>Machine Learning Intern · Deakin University IISRI</h3>
-      <span class="meta">Sep 2025 – Apr 2026</span>
-      <p class="desc">Developed a deep learning pipeline for wildfire detection, and real-time biometric stress monitoring in VR.</p>
-    </div>
-  </section>
-
-  <section id="projects">
-    <div class="section-heading"><h2>Selected projects</h2><span id="project-count" aria-live="polite">3 projects</span></div>
     <div class="filters" role="group" aria-label="Filter projects" hidden>
-    <button class="filter" aria-pressed="true" data-filter="all">All work</button>
-    <button class="filter" aria-pressed="false" data-filter="ml">Machine learning</button>
-    <button class="filter" aria-pressed="false" data-filter="analytics">Analytics</button>
-    <button class="filter" aria-pressed="false" data-filter="ar">AR &amp; interaction</button></div>
-    <article class="card" data-category="ml"><div class="project-number">01 / COMPUTER VISION</div>
-      <h3>HybridFusionNet</h3>
-      <p>Multimodal wildfire segmentation fusing RGB and thermal imagery with an ensemble of YOLOv12 and EfficientNet models.</p>
-      <div class="tags">PyTorch · YOLOv12 · EfficientNet</div>
-    <details><summary>Model approach</summary><p>Combines RGB and thermal inputs for wildfire segmentation, using an ensemble of YOLOv12 and EfficientNet models.</p></details><a class="project-link" href="https://github.com/wongjoan/HybridFusion" target="_blank" rel="noopener">Explore repository ↗</a></article>
-    <article class="card" data-category="analytics"><div class="project-number">02 / BUSINESS ANALYTICS</div>
-      <h3>Commercial ROI Dashboard</h3>
-      <p>Role-based performance and ROI dashboard with explainable KPI scores, built for Glocomp Systems.</p>
-      <div class="tags">Python · SQL · KPI Analytics</div>
-    <details><summary>Dashboard focus</summary><p>Brings role-based performance and return-on-investment views together with explainable KPI scores for Glocomp Systems.</p></details><a class="project-link" href="https://github.com/wongjoan/commercial-return-dashboard" target="_blank" rel="noopener">Explore repository ↗</a></article>
-    <article class="card" data-category="ml ar"><div class="project-number">03 / AUGMENTED REALITY</div>
-      <h3>AR Action Recognition for ROV Safety</h3>
-      <p>Final year project: real-time hand-action recognition on HoloLens 2 with sub-100 ms feedback.</p>
-      <div class="tags">MediaPipe · Random Forest · MRTK3</div><details><summary>Interaction approach</summary><p>Uses MediaPipe, Random Forest and MRTK3 for real-time hand-action recognition on HoloLens 2, targeting ROV safety with sub-100 ms feedback.</p></details><div class="project-status">Final year project</div></article>
+      <button class="filter" type="button" aria-pressed="true" data-filter="all">All work</button>
+      <button class="filter" type="button" aria-pressed="false" data-filter="ml">Machine learning</button>
+      <button class="filter" type="button" aria-pressed="false" data-filter="analytics">Analytics</button>
+      <button class="filter" type="button" aria-pressed="false" data-filter="ar">AR &amp; interaction</button>
+    </div>
+
+    <div class="projects">
+      <article class="card project" data-category="ml">
+        <div class="project-body">
+          <div class="project-title">
+            <span class="code">P1</span>
+            <h3>Wildfire Detection Model</h3>
+            <span class="kicker">RGB-IR WILDFIRE SEGMENTATION</span>
+          </div>
+          <p>An asymmetric dual-stream network (YOLOv12n + EfficientNet-B2) with spatial gate fusion that weights RGB and thermal input per pixel, trained for extreme class imbalance. Deakin University IISRI.</p>
+          <a class="repo" href="https://github.com/wongjoan/HybridFusion" target="_blank" rel="noopener">github.com/wongjoan/HybridFusion ↗</a>
+        </div>
+        <div class="stats">
+          <div class="stat"><b>91.95%</b><span>F1 · CORSICAN</span></div>
+          <div class="stat"><b>88.49%</b><span>F1 · RGB-T</span></div>
+          <div class="stat"><b>1,367</b><span>IMAGE PAIRS</span></div>
+        </div>
+      </article>
+
+      <article class="card project" data-category="ml ar">
+        <div class="project-body">
+          <div class="project-title">
+            <span class="code">P2</span>
+            <h3>Hand-Action Recognition AR</h3>
+            <span class="kicker">FINAL YEAR PROJECT · ONGOING</span>
+          </div>
+          <p>Recognises ROV safety-training actions with MediaPipe Hands and streams feedback to HoloLens 2 over real-time UDP. Feature engineering lifted accuracy from 50% to 75% on held-out clips.</p>
+        </div>
+        <div class="stats">
+          <div class="stat"><b>75%</b><span>ACCURACY</span></div>
+          <div class="stat"><b>9</b><span>MODEL CONFIGS</span></div>
+          <div class="stat"><b>4</b><span>ROV ACTIONS</span></div>
+        </div>
+      </article>
+
+      <article class="card project" data-category="analytics">
+        <div class="project-body">
+          <div class="project-title">
+            <span class="code">P3</span>
+            <h3>Commercial Team ROI Dashboard</h3>
+            <span class="kicker">KABEL DXP · YEI 3.0</span>
+          </div>
+          <p>A role-based performance dashboard with ROI on the full cost base, explainable KPI scores and LLM-generated KPI recommendations behind a manager-approval step.</p>
+          <a class="repo" href="https://github.com/wongjoan/commercial-return-dashboard" target="_blank" rel="noopener">github.com/wongjoan/commercial-return-dashboard ↗</a>
+        </div>
+        <div class="stats">
+          <div class="stat"><b>4</b><span>ROLE LEVELS</span></div>
+          <div class="stat"><b>Claude</b><span>LLM API</span></div>
+          <div class="stat"><b>RLS</b><span>SUPABASE</span></div>
+        </div>
+      </article>
+
+      <article class="card project" data-category="ar">
+        <div class="project-body">
+          <div class="project-title">
+            <span class="code">P4</span>
+            <h3>ECCO</h3>
+            <span class="kicker">INTERPROFESSIONAL VR TRAINING</span>
+          </div>
+          <p>A multi-user VR platform concept for joint emergency-response training between medical and paramedic teams, pitched at the INNOCOM AID National Innovation Competition.</p>
+        </div>
+        <div class="stats two">
+          <div class="stat"><b>Silver</b><span>BEST PRESENTER</span></div>
+          <div class="stat"><b>6</b><span>TEAM MEMBERS</span></div>
+        </div>
+      </article>
+    </div>
   </section>
 
-  <section id="leadership">
-    <h2>Leadership &amp; Awards</h2>
-    <div class="row">
-      <h3>Project Director · FESCO 2025, UTP</h3>
-      <span class="meta"></span>
-      <p class="desc">Directed an international multicultural event with 2,400+ attendees, leading a 130+ member committee.</p>
-    </div>
-    <div class="row">
-      <h3>President · UTP Performing Arts Group</h3>
-      <span class="meta"></span>
-      <p class="desc">Led a 50+ member student organization across strategy, events and performances.</p>
-    </div>
-    <div class="row">
-      <h3>Cheonan World Dance Festival, South Korea</h3>
-      <span class="meta"></span>
-      <p class="desc">Gold Award (2023) · Bronze Award &amp; Best Choreography (2024)</p>
-    </div>
-    <div class="row">
-      <h3>IEEE AISS 2025 Scholarship Recipient</h3>
+  <section id="experience">
+    <p class="label">// EXPERIENCE</p>
+    <h2>Research internship</h2>
+    <div class="card">
+      <div class="job-head">
+        <div>
+          <h3>Machine Learning Intern</h3>
+          <p class="sub">Deakin University, IISRI · Australia</p>
+        </div>
+        <span class="date">SEP 2025 – APR 2026</span>
+      </div>
+      <div class="split">
+        <div>
+          <p class="kicker">01 · VISION</p>
+          <p>Multimodal RGB-IR wildfire segmentation (Wildfire Detection Model, above).</p>
+        </div>
+        <div>
+          <p class="kicker">02 · BIOSIGNALS</p>
+          <p>Real-time VR stress monitoring from EEG and PPG on the Galea headset, with a bio-responsive interface.</p>
+        </div>
+      </div>
     </div>
   </section>
 
   <section id="about">
-    <h2>Education</h2>
-    <div class="row">
-      <h3>BIT (Hons), Big Data Analytics · UTP</h3>
-      <p class="desc">Minor in Accounting &amp; Finance</p>
+    <p class="label">// ABOUT</p>
+    <h2>Skills, education &amp; leadership</h2>
+    <div class="grid3">
+      <div class="card">
+        <p class="card-label">SKILLS</p>
+        <p><strong>ML</strong> · PyTorch, OpenCV, MediaPipe, YOLOv12</p>
+        <p><strong>Data</strong> · Python, SQL, Pandas, scikit-learn</p>
+        <p><strong>Tools</strong> · C#, Git, Supabase, Vercel</p>
+      </div>
+      <div class="card">
+        <p class="card-label">EDUCATION</p>
+        <h3>BIT (Hons), Big Data Analytics</h3>
+        <p class="sub">Universiti Teknologi PETRONAS</p>
+        <p>Minor in Accounting &amp; Finance · ICAEW CFAB (in progress)</p>
+      </div>
+      <div class="card">
+        <p class="card-label">LEADERSHIP</p>
+        <h3>Project Director · FESCO 2025</h3>
+        <p class="sub">2,400+ attendees, 130+ committee, RM20,000 sponsorship</p>
+        <h3>President · UPAG</h3>
+        <p class="sub" style="margin-bottom:0">50+ member performing arts group</p>
+      </div>
+    </div>
+    <div class="card awards">
+      <p class="card-label">AWARDS</p>
+      <ul>
+        <li><span class="tri">▲</span>IEEE AISS 2025 Scholarship, Swinburne University</li>
+        <li><span class="tri">▲</span>Best Presenter Silver Award, INNOCOM AID</li>
+        <li><span class="tri">▲</span>Dean’s List, every semester</li>
+        <li><span class="tri">▲</span>Top 3 Finalist, Distinguished President Award 2025</li>
+        <li><span class="tri">▲</span>Cheonan World Dance Festival: Gold 2023; Bronze &amp; Best Choreography 2024</li>
+      </ul>
     </div>
   </section>
 
-  <section id="contact"><h2>Get in touch</h2><div class="contact-box">
-    <h3>Let’s connect.</h3><p>Have a project, an opportunity, or an idea to share?</p>
-    <div class="links"><a class="btn primary" href="mailto:wongjingtao1001@gmail.com">Say hello ↗</a><button class="btn" id="copy-email" type="button" hidden>Copy email</button></div>
-    <div id="copy-status" role="status"></div>
-  </div></section>
+  <section id="contact">
+    <p class="label">// GET IN TOUCH</p>
+    <h2>Let’s talk about AI/ML roles.</h2>
+    <p class="contact-intro">Download my CV or reach me on any of these.</p>
+    <div class="contacts">
+      <a class="contact cv" href="Wong_Jing_Tao_Joanne_CV.pdf" download><small>CV</small><div>Download PDF ↓</div></a>
+      <a class="contact" href="mailto:wongjingtao1001@gmail.com"><small>EMAIL</small><div>wongjingtao1001@gmail.com ↗</div></a>
+      <a class="contact" href="https://github.com/wongjoan" target="_blank" rel="noopener"><small>GITHUB</small><div>@wongjoan ↗</div></a>
+      <a class="contact" href="https://www.linkedin.com/in/wong-jing-tao-joanne/" target="_blank" rel="noopener"><small>LINKEDIN</small><div>wong-jing-tao-joanne ↗</div></a>
+    </div>
+    <div class="copy-row">
+      <button class="btn small" id="copy-email" type="button" hidden>Copy email</button>
+      <span id="copy-status" role="status"></span>
+    </div>
+  </section>
 </main>
 
-<footer>
-  <div class="wrap">© 2026 Wong Jing Tao Joanne · <a href="mailto:wongjingtao1001@gmail.com">wongjingtao1001@gmail.com</a></div>
-</footer>
+<footer>© 2026 WONG JING TAO JOANNE</footer>
+
 <script>
+  // Fade-in on scroll
   (function () {
     if (!("IntersectionObserver" in window)) return;
-    var items = document.querySelectorAll("section h2, .row, .card");
+    var items = document.querySelectorAll(".label, section h2, .project, section .card, .contacts");
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
@@ -260,51 +399,52 @@
     items.forEach(function (el) { el.classList.add("reveal"); io.observe(el); });
   })();
 
+  // Project filters
   (function () {
-    var theme = document.querySelector('.theme');
-    function setTheme(light) {
-      document.body.classList.toggle('light', light);
-      document.querySelector('meta[name="color-scheme"]').content = light ? 'light' : 'dark';
-      theme.textContent = light ? '☾' : '☀';
-      theme.setAttribute('aria-label', 'Switch to ' + (light ? 'dark' : 'light') + ' theme');
-    }
-    var stored; try { stored = localStorage.getItem('portfolio-theme'); } catch(e) {}
-    setTheme(stored === 'light'); theme.hidden = false;
-    theme.addEventListener('click', function() {
-      setTheme(!document.body.classList.contains('light'));
-      try { localStorage.setItem('portfolio-theme', document.body.classList.contains('light') ? 'light' : 'dark'); } catch(e) {}
-    });
-    document.querySelector('.filters').hidden = false;
-    document.querySelectorAll('.filter').forEach(function(button) {
-      button.addEventListener('click', function() {
-        document.querySelectorAll('.filter').forEach(function(b) { b.setAttribute('aria-pressed', String(b === button)); });
+    var filters = document.querySelector(".filters");
+    filters.hidden = false;
+    filters.querySelectorAll(".filter").forEach(function (button) {
+      button.addEventListener("click", function () {
+        filters.querySelectorAll(".filter").forEach(function (b) { b.setAttribute("aria-pressed", String(b === button)); });
         var count = 0;
-        document.querySelectorAll('[data-category]').forEach(function(card) {
-          card.hidden = button.dataset.filter !== 'all' && !card.dataset.category.split(' ').includes(button.dataset.filter);
+        document.querySelectorAll("[data-category]").forEach(function (card) {
+          card.hidden = button.dataset.filter !== "all" && !card.dataset.category.split(" ").includes(button.dataset.filter);
           if (!card.hidden) count++;
         });
-        document.getElementById('project-count').textContent = count + (count === 1 ? ' project' : ' projects');
+        document.getElementById("project-count").textContent = count + (count === 1 ? " PROJECT" : " PROJECTS");
       });
     });
-    var copy = document.getElementById('copy-email');
-    if (navigator.clipboard && window.isSecureContext) {
-      copy.hidden = false;
-      copy.addEventListener('click', async function() {
-        try { await navigator.clipboard.writeText('wongjingtao1001@gmail.com'); document.getElementById('copy-status').textContent = 'Email copied. Let’s talk!'; }
-        catch(e) { document.getElementById('copy-status').textContent = 'Email: wongjingtao1001@gmail.com'; }
-      });
-    }
-    var links = document.querySelectorAll('.nav-links a');
-    function updateScroll() {
-      var range = document.documentElement.scrollHeight - window.innerHeight;
-      document.querySelector('.progress').style.width = (range > 0 ? window.scrollY / range * 100 : 0) + '%';
-      var active = '';
-      document.querySelectorAll('main section[id]').forEach(function(section) { if(section.getBoundingClientRect().top <= 140) active = section.id; });
-      links.forEach(function(a) { if(a.hash === '#' + active) a.setAttribute('aria-current','location'); else a.removeAttribute('aria-current'); });
-    }
-    window.addEventListener('scroll', updateScroll, {passive:true}); window.addEventListener('resize', updateScroll); updateScroll();
   })();
 
+  // Copy email
+  (function () {
+    var copy = document.getElementById("copy-email");
+    if (!(navigator.clipboard && window.isSecureContext)) return;
+    copy.hidden = false;
+    copy.addEventListener("click", async function () {
+      var status = document.getElementById("copy-status");
+      try { await navigator.clipboard.writeText("wongjingtao1001@gmail.com"); status.textContent = "Email copied."; }
+      catch (e) { status.textContent = "wongjingtao1001@gmail.com"; }
+    });
+  })();
+
+  // Scroll progress + current-section nav highlight
+  (function () {
+    var bar = document.querySelector(".progress");
+    var links = document.querySelectorAll(".nav-links a[href^='#']");
+    function update() {
+      var range = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.width = (range > 0 ? window.scrollY / range * 100 : 0) + "%";
+      var active = "";
+      document.querySelectorAll("main section[id]").forEach(function (s) { if (s.getBoundingClientRect().top <= 140) active = s.id; });
+      links.forEach(function (a) {
+        if (a.hash === "#" + active) a.setAttribute("aria-current", "location"); else a.removeAttribute("aria-current");
+      });
+    }
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    update();
+  })();
 </script>
 </body>
 </html>
